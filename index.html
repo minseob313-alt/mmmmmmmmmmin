@@ -1,0 +1,556 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MINSEO — personal archive</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --paper:#f4f0e8;
+  --ink:#242321;
+  --muted:#77736c;
+  --line:#d8d1c5;
+  --red:#e34b3d;
+  --blue:#4358d6;
+  --lime:#d9e66c;
+  --white:#fffdf8;
+}
+
+* { box-sizing:border-box; }
+
+body {
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Noto Sans KR',sans-serif;
+}
+
+.page {
+  max-width:1120px;
+  margin:auto;
+  padding:28px 34px 44px;
+}
+
+.topbar {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid var(--ink);
+  padding:0 0 14px;
+  font:11px 'DM Mono',monospace;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.topbar .mark {
+  font-weight:500;
+  font-size:13px;
+}
+
+.topbar .right { color:var(--muted); }
+
+.hero {
+  padding:58px 0 38px;
+  display:grid;
+  grid-template-columns:1fr 220px;
+  gap:24px;
+  align-items:end;
+}
+
+.kicker {
+  font:11px 'DM Mono',monospace;
+  letter-spacing:.12em;
+  color:var(--red);
+  text-transform:uppercase;
+}
+
+h1 {
+  font:800 clamp(64px,11vw,132px)/.88 'Manrope',sans-serif;
+  letter-spacing:-.095em;
+  margin:18px 0;
+}
+
+h1 span { color:var(--red); }
+
+.intro {
+  font-size:15px;
+  line-height:1.9;
+  color:#55514c;
+  max-width:540px;
+  margin:0;
+}
+
+.hero-note {
+  justify-self:end;
+  align-self:center;
+  width:190px;
+  aspect-ratio:1;
+  border:1px solid var(--ink);
+  border-radius:50%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  transform:rotate(8deg);
+  background:var(--lime);
+  position:relative;
+}
+
+.hero-note strong {
+  font:700 27px 'Manrope';
+  letter-spacing:-.06em;
+}
+
+.hero-note small {
+  font:10px 'DM Mono';
+  margin-top:5px;
+  letter-spacing:.08em;
+}
+
+.hero-note:after {
+  content:'✳';
+  position:absolute;
+  font-size:29px;
+  right:0;
+  top:8px;
+  color:var(--red);
+}
+
+.meta {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:22px;
+}
+
+.tag {
+  font:10px 'DM Mono',monospace;
+  border:1px solid var(--line);
+  border-radius:30px;
+  padding:7px 11px;
+  color:#5e5a54;
+  background:rgba(255,253,248,.45);
+}
+
+.tag.red {
+  background:var(--red);
+  border-color:var(--red);
+  color:white;
+}
+
+.rule {
+  height:1px;
+  background:var(--ink);
+  margin:12px 0 0;
+}
+
+.section { padding:28px 0 8px; }
+
+.section-head {
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  margin-bottom:16px;
+}
+
+.section-head h2 {
+  font:700 13px 'DM Mono',monospace;
+  letter-spacing:.08em;
+  margin:0;
+}
+
+.section-head span {
+  font-size:11px;
+  color:var(--muted);
+}
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:12px;
+}
+
+.card {
+  border:1px solid var(--line);
+  padding:20px;
+  background:var(--white);
+  min-height:180px;
+  position:relative;
+  overflow:hidden;
+}
+
+.card h3 {
+  font-size:18px;
+  letter-spacing:-.04em;
+  margin:8px 0 10px;
+  font-weight:800;
+}
+
+.card p {
+  font-size:13px;
+  line-height:1.85;
+  color:#5d5953;
+  margin:0;
+}
+
+.card .eyeline {
+  font:10px 'DM Mono';
+  letter-spacing:.1em;
+  color:var(--muted);
+  text-transform:uppercase;
+}
+
+.profile {
+  grid-column:span 5;
+  background:#e9e3d8;
+}
+
+.profile .big {
+  font:800 50px/.95 'Manrope';
+  letter-spacing:-.08em;
+  margin:17px 0 20px;
+}
+
+.profile .big em {
+  font-style:normal;
+  color:var(--red);
+}
+
+.profile .details {
+  display:grid;
+  grid-template-columns:70px 1fr;
+  gap:7px;
+  font-size:12px;
+}
+
+.profile .details b {
+  font-weight:700;
+  color:#8b625d;
+}
+
+.major {
+  grid-column:span 7;
+  background:#e2e6f7;
+}
+
+.major .symbol {
+  position:absolute;
+  right:20px;
+  top:14px;
+  font-size:62px;
+  color:var(--blue);
+  transform:rotate(-12deg);
+}
+
+.major h3 {
+  font-size:25px;
+  max-width:350px;
+  margin-top:30px;
+}
+
+.major .sub {
+  font:10px 'DM Mono';
+  color:var(--blue);
+  letter-spacing:.1em;
+}
+
+.pet {
+  grid-column:span 4;
+  background:#e5edcf;
+  min-height:210px;
+}
+
+.pet .paw {
+  font-size:40px;
+  position:absolute;
+  right:20px;
+  top:20px;
+  transform:rotate(12deg);
+}
+
+.pet h3 {
+  font-size:27px;
+  margin-top:32px;
+}
+
+.food {
+  grid-column:span 4;
+  background:#f4dfd8;
+}
+
+.food .food-icons {
+  font-size:30px;
+  letter-spacing:7px;
+}
+
+.baseball {
+  grid-column:span 4;
+  background:#252523;
+  color:#fffdf8;
+}
+
+.baseball p { color:#d0ccc4; }
+.baseball .eyeline { color:#b6b0a6; }
+
+.baseball h3 {
+  font:800 27px 'Manrope';
+  letter-spacing:-.06em;
+}
+
+.baseball .number {
+  position:absolute;
+  right:16px;
+  bottom:-25px;
+  font:800 110px 'Manrope';
+  color:#e34b3d;
+  opacity:.95;
+  letter-spacing:-.1em;
+}
+
+.drama {
+  grid-column:span 5;
+  background:#f1e9d2;
+}
+
+.drama h3 { font-size:24px; }
+
+.drama .cross {
+  position:absolute;
+  right:22px;
+  bottom:12px;
+  font-size:42px;
+  color:var(--red);
+  transform:rotate(12deg);
+}
+
+.habits {
+  grid-column:span 7;
+  background:#e7dfe9;
+}
+
+.habits .chips {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:16px;
+}
+
+.chip {
+  border:1px solid #aaa0b0;
+  border-radius:99px;
+  padding:6px 12px;
+  font-size:12px;
+}
+
+.people {
+  grid-column:span 6;
+  background:#fffdf8;
+}
+
+.people .quote,
+.nope .quote {
+  font:700 24px/1.45 'Noto Sans KR';
+  letter-spacing:-.06em;
+  margin:12px 0;
+}
+
+.nope {
+  grid-column:span 6;
+  background:var(--lime);
+}
+
+.footer {
+  border-top:1px solid var(--ink);
+  margin-top:34px;
+  padding-top:14px;
+  display:flex;
+  justify-content:space-between;
+  font:10px 'DM Mono';
+  letter-spacing:.08em;
+  color:var(--muted);
+}
+
+.footer b {
+  color:var(--red);
+  font-weight:500;
+}
+
+@media(max-width:720px) {
+  .page { padding:20px 18px 32px; }
+
+  .hero {
+    grid-template-columns:1fr;
+    padding:42px 0 28px;
+  }
+
+  .hero-note {
+    width:118px;
+    justify-self:start;
+    margin:12px 0 0 8px;
+  }
+
+  .hero-note strong { font-size:20px; }
+
+  h1 { font-size:clamp(58px,17vw,92px); }
+
+  .profile,.major,.pet,.food,.baseball,
+  .drama,.habits,.people,.nope {
+    grid-column:span 12;
+  }
+
+  .profile { min-height:230px; }
+  .major { min-height:230px; }
+
+  .footer {
+    gap:15px;
+    flex-wrap:wrap;
+  }
+}
+</style>
+</head>
+
+<body>
+<main class="page">
+
+  <div class="topbar">
+    <div class="mark">M—ARCHIVE / 01</div>
+    <div class="right">A PERSONAL PAGE · 2026</div>
+  </div>
+
+  <header class="hero">
+    <div>
+      <div class="kicker">A LITTLE BIT OF EVERYTHING ABOUT ME</div>
+      <h1>HELLO,<br>MIN<span>SEO.</span></h1>
+      <p class="intro">
+        박민서의 취향과 일상에 대한 작은 아카이브.<br>
+        좋아하는 건 확실하고, 나만의 리듬으로 살아가는 중.
+      </p>
+      <div class="meta">
+        <span class="tag red">21 YEARS OLD</span>
+        <span class="tag">CHEONGJU, KR</span>
+        <span class="tag">RADIOLOGIC SCIENCE · Y2</span>
+      </div>
+    </div>
+
+    <div class="hero-note">
+      <strong>THIS IS<br>MY WORLD</strong>
+      <small>EST. 2005-ish · ✳</small>
+    </div>
+  </header>
+
+  <div class="rule"></div>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>01 / THE BASICS</h2>
+      <span>profile, major & everyday life</span>
+    </div>
+
+    <div class="grid">
+      <article class="card profile">
+        <div class="eyeline">GET TO KNOW ME</div>
+        <div class="big">PARK<br><em>MINSEO.</em></div>
+        <div class="details">
+          <b>NAME</b><span>박민서</span>
+          <b>AGE</b><span>21</span>
+          <b>BASED IN</b><span>청주, 대한민국</span>
+          <b>STUDY</b><span>방사선학과 2학년</span>
+        </div>
+      </article>
+
+      <article class="card major">
+        <div class="sub">MY MAJOR / 02ND YEAR</div>
+        <div class="symbol">✳</div>
+        <h3>세상을 더 선명하게 보는 공부, 방사선학.</h3>
+        <p>
+          가장 재미있게 들었던 과목은
+          <b>두부영상진단학 및 실습</b>.<br>
+          이론과 영상이 연결되는 순간이 흥미롭다.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>02 / MY FAVORITE THINGS</h2>
+      <span>the things that make my day</span>
+    </div>
+
+    <div class="grid">
+      <article class="card pet">
+        <div class="eyeline">MY ROOMMATE, KIND OF</div>
+        <div class="paw">🐾</div>
+        <h3>후추 HUCHU</h3>
+        <p>함께 살고 있는 강아지.<br>우리 집의 귀여움 담당이자 소중한 가족.</p>
+      </article>
+
+      <article class="card food">
+        <div class="eyeline">FOOD MOOD</div>
+        <div class="food-icons">🥢 🍣</div>
+        <h3>양꼬치 & 연어회</h3>
+        <p>좋아하는 음식은 이 두 가지.<br>가지와 우엉은 취향 아님. 단호하게 패스!</p>
+      </article>
+
+      <article class="card baseball">
+        <div class="eyeline">GAME DAY IS THE BEST DAY</div>
+        <h3>KIA TIGERS</h3>
+        <p>응원하는 팀은 기아 타이거즈.<br>최애 선수는 김도영!</p>
+        <div class="number">#5</div>
+      </article>
+
+      <article class="card drama">
+        <div class="eyeline">ON MY WATCHLIST</div>
+        <h3>GREY'S<br>ANATOMY</h3>
+        <p>가장 재미있게 본 미국 드라마.<br>의학 드라마 특유의 몰입감이 좋다.</p>
+        <div class="cross">＋</div>
+      </article>
+
+      <article class="card habits">
+        <div class="eyeline">OFF-DUTY ACTIVITIES</div>
+        <h3>야구 보고, 낮잠 자고.</h3>
+        <p>
+          취미는 야구 보기와 낮잠 자기.<br>
+          열정적으로 응원한 다음에는 누구보다 편안하게 쉬기.
+        </p>
+        <div class="chips">
+          <span class="chip">⚾ BASEBALL</span>
+          <span class="chip">☁ NAP TIME</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>03 / MY PEOPLE</h2>
+      <span>green flags & instant no</span>
+    </div>
+
+    <div class="grid">
+      <article class="card people">
+        <div class="eyeline">GREEN FLAGS</div>
+        <div class="quote">듬직하고, 무던하고,<br>똑 부러지는 사람.</div>
+        <p>자기 생각과 행동이 분명하고 믿음직한 사람이 좋다.</p>
+      </article>
+
+      <article class="card nope">
+        <div class="eyeline">NOT MY THING</div>
+        <div class="quote">약속은<br>지키라고 있는 것.</div>
+        <p>약속을 가볍게 여기고 지키지 않는 사람은 싫어요.</p>
+      </article>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span>MADE OF LITTLE DETAILS <b>✳</b></span>
+    <span>MINSEO'S PERSONAL ARCHIVE / END.</span>
+  </footer>
+
+</main>
+</body>
+</html>
